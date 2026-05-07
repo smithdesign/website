@@ -1,0 +1,25 @@
+---
+import { siteMeta } from '../data/meta';
+import { socialLinks } from '../data/social';
+---
+
+<footer class="border-t border-neutral-300 bg-white py-8">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <nav aria-label="Social links" class="mb-4 flex justify-center gap-6">
+      {socialLinks.map((link) => (
+        <a
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={link.label}
+          class="text-neutral-500 hover:text-blue-500 transition-colors duration-150 rounded focus:outline-2 focus:outline-offset-2 focus:outline-primary-500"
+        >
+          {link.platform}
+        </a>
+      ))}
+    </nav>
+    <p class="text-sm text-neutral-500">
+      &copy; {new Date().getFullYear()} {siteMeta.author}. All rights reserved.
+    </p>
+  </div>
+</footer>

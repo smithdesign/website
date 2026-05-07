@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CompetenciesSection from '../components/CompetenciesSection.astro';
+---
+
+<BaseLayout
+  title="Introduction"
+  description="Tobby Smith - Software Development Leader with 24+ years of experience building high-performance web applications at scale and leading engineering teams."
+  currentPage="home"
+>
+  <Hero
+    name="Tobby Smith"
+    title="Software Development Leader"
+    tagline="Engineering leader with 24+ years of experience building high-performance web applications at scale and leading teams that deliver exceptional results."
+  />
+
+  <section class="py-10 md:py-16 bg-neutral-50" aria-labelledby="summary-heading">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 id="summary-heading" class="text-[1.75rem] md:text-[2.25rem] font-bold text-neutral-900 text-center mb-8">
+        About Me
+      </h2>
+      <p class="text-lg md:text-xl text-neutral-700 leading-relaxed max-w-3xl mx-auto text-center">
+        A seasoned engineering leader with over 24 years of experience building high-performance web applications at scale and leading engineering teams. Currently leading the front-end architecture of Zappos.com — one of the world's largest e-commerce platforms serving millions of customers.
+      </p>
+    </div>
+  </section>
+
+  <CompetenciesSection />
+</BaseLayout>

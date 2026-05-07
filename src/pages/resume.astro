@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SkillsSection from '../components/SkillsSection.astro';
+import Timeline from '../components/Timeline.astro';
+import { experience, education } from '../data/experience';
+import { skills } from '../data/skills';
+---
+
+<BaseLayout
+  title="Resume"
+  description="Professional resume of Tobby Smith — 24+ years of experience building high-performance web applications at scale, with 7+ years in engineering management building, scaling, and mentoring front-end teams."
+  currentPage="resume"
+>
+  <!-- Page heading -->
+  <section class="pt-8 md:pt-12 pb-4 bg-neutral-50" aria-labelledby="resume-heading">
+    <div class="max-w-6xl mx-auto px-6">
+      <h1 id="resume-heading" class="text-[2rem] md:text-[2.75rem] font-extrabold text-neutral-900 text-center">
+        Resume
+      </h1>
+    </div>
+  </section>
+
+  <!-- Career Timeline (primary focus) -->
+  <section class="py-8 md:py-12 bg-neutral-50" aria-labelledby="experience-heading">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 id="experience-heading" class="text-[1.75rem] md:text-[2.25rem] font-bold text-neutral-900 text-center mb-8">
+        Career History
+      </h2>
+      <Timeline entries={experience} />
+    </div>
+  </section>
+
+  <!-- Skills Section (de-emphasized) -->
+  <section class="py-6 md:py-8" aria-labelledby="skills-heading">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 id="skills-heading" class="text-lg md:text-xl font-semibold text-neutral-700 text-center mb-4">
+        Skills
+      </h2>
+      <div class="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
+        {skills.flatMap((category) =>
+          category.skills.map((skill) => (
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 text-neutral-700 border border-neutral-300">
+              {skill}
+            </span>
+          ))
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section class="py-6 md:py-8 bg-neutral-50" aria-labelledby="education-heading">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 id="education-heading" class="text-lg md:text-xl font-semibold text-neutral-700 text-center mb-4">
+        Education
+      </h2>
+      <p class="text-sm text-neutral-700 text-center">
+        {education.map((edu) => `${edu.institution} (${edu.years})`).join(' • ')}
+      </p>
+    </div>
+  </section>
+</BaseLayout>

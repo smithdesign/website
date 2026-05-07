@@ -1,0 +1,141 @@
+---
+interface Props {
+  currentPage: 'home' | 'resume' | 'contact';
+}
+
+const { currentPage } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Introduction', page: 'home' as const },
+  { href: '/resume', label: 'Resume', page: 'resume' as const },
+  { href: '/contact', label: 'Contact', page: 'contact' as const },
+];
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-300">
+  <nav aria-label="Main navigation" class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="text-lg font-bold text-primary-900">Tobby Smith</a>
+
+    <!-- Desktop navigation links (hidden on mobile) -->
+    <ul class="hidden md:flex gap-6">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            aria-current={currentPage === link.page ? 'page' : undefined}
+            class:list={[
+              'text-sm font-medium transition-colors duration-150 hover:text-primary-600 focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 rounded',
+              currentPage === link.page ? 'text-primary-600' : 'text-neutral-700',
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile hamburger button (visible only below md breakpoint) -->
+    <button
+      id="mobile-menu-toggle"
+      type="button"
+      class="md:hidden flex items-center justify-center w-10 h-10 rounded focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 text-neutral-700 hover:text-primary-600 transition-colors duration-150"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open navigation menu"
+    >
+      <!-- Hamburger icon -->
+      <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <!-- Close icon (hidden by default) -->
+      <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu panel (hidden by default) -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden border-t border-neutral-300 bg-white"
+    role="navigation"
+    aria-label="Mobile navigation"
+  >
+    <ul class="flex flex-col px-6 py-2">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            aria-current={currentPage === link.page ? 'page' : undefined}
+            class:list={[
+              'block py-3 px-2 text-sm font-medium transition-colors duration-150 hover:text-primary-600 hover:bg-neutral-100 rounded focus:outline-2 focus:outline-offset-2 focus:outline-primary-500',
+              currentPage === link.page ? 'text-primary-600 bg-primary-100/50' : 'text-neutral-700',
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<!-- Noscript fallback: show nav links when JS is disabled -->
+<noscript>
+  <style>
+    #mobile-menu-toggle {
+      display: none !important;
+    }
+    #mobile-menu {
+      display: block !important;
+    }
+    @media (min-width: 768px) {
+      #mobile-menu {
+        display: none !important;
+      }
+    }
+  </style>
+</noscript>
+
+<!-- Inline script for hamburger menu toggle (Astro island approach) -->
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  if (toggle && menu && hamburgerIcon && closeIcon) {
+    toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isExpanded));
+      toggle.setAttribute('aria-label', isExpanded ? 'Open navigation menu' : 'Close navigation menu');
+      menu.classList.toggle('hidden');
+      hamburgerIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation menu');
+        menu.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        toggle.focus();
+      }
+    });
+
+    // Close menu when a link inside is clicked
+    const menuLinks = menu.querySelectorAll('a');
+    menuLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation menu');
+        menu.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+  }
+</script>

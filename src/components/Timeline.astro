@@ -1,0 +1,35 @@
+---
+import type { ExperienceEntry } from "../data/experience";
+import TimelineEntry from "./TimelineEntry.astro";
+import ScrollReveal from "./ScrollReveal.astro";
+
+interface Props {
+  entries: ExperienceEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="timeline relative mx-auto w-full max-w-4xl">
+  {/* Vertical timeline line - left on mobile, center on desktop */}
+  <div
+    class="absolute left-0 top-0 h-full w-0.5 bg-neutral-300 md:left-1/2 md:-translate-x-1/2"
+    aria-hidden="true"
+  />
+
+  {/* Timeline entries */}
+  <div class="flex flex-col gap-6 md:gap-8">
+    {entries.map((entry, index) => (
+      <ScrollReveal animation="fade-up" delay={index * 100}>
+        <div
+          class:list={[
+            "relative flex",
+            index % 2 === 0 ? "md:justify-start" : "md:justify-end",
+          ]}
+        >
+          <TimelineEntry entry={entry} index={index} />
+        </div>
+      </ScrollReveal>
+    ))}
+  </div>
+</div>

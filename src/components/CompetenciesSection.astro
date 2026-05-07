@@ -1,0 +1,46 @@
+---
+import CompetencyCard from './CompetencyCard.astro';
+import ScrollReveal from './ScrollReveal.astro';
+
+const competencies = [
+  {
+    title: 'Engineering Team Leadership',
+    description: 'Building, scaling, and mentoring high-performing front-end engineering teams.',
+    icon: '👥',
+  },
+  {
+    title: 'Platform Architecture & Modernization',
+    description: 'Leading large-scale migrations and modernizing legacy systems for performance and maintainability.',
+    icon: '🏗️',
+  },
+  {
+    title: 'Stakeholder & Roadmap Management',
+    description: 'Aligning technical strategy with business goals through cross-functional collaboration.',
+    icon: '🗺️',
+  },
+  {
+    title: 'Performance Optimization at Scale',
+    description: 'Driving Core Web Vitals improvements and delivering fast experiences to millions of users.',
+    icon: '⚡',
+  },
+];
+---
+
+<section class="py-10 md:py-16" aria-labelledby="competencies-heading">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 id="competencies-heading" class="text-[1.75rem] md:text-[2.25rem] font-bold text-neutral-900 text-center mb-10">
+      Core Competencies
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      {competencies.map((competency, index) => (
+        <ScrollReveal animation="fade-up" delay={index * 100}>
+          <CompetencyCard
+            title={competency.title}
+            description={competency.description}
+            icon={competency.icon}
+          />
+        </ScrollReveal>
+      ))}
+    </div>
+  </div>
+</section>

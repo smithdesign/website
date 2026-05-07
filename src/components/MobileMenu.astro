@@ -1,0 +1,53 @@
+---
+/**
+ * MobileMenu.astro - Mobile navigation menu component
+ * 
+ * This component provides the mobile hamburger menu functionality.
+ * It is integrated directly into Navigation.astro using Astro's
+ * inline script approach (client-side island with minimal JS).
+ * 
+ * The mobile menu:
+ * - Toggles visibility via a hamburger button (below 768px)
+ * - Supports keyboard navigation (Escape to close, Tab through links)
+ * - Provides visible focus states for accessibility
+ * - Falls back to visible nav links when JS is disabled (<noscript>)
+ * - Uses aria-expanded and aria-controls for screen reader support
+ */
+
+interface Props {
+  currentPage: 'home' | 'resume' | 'contact';
+}
+
+const { currentPage } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Introduction', page: 'home' as const },
+  { href: '/resume', label: 'Resume', page: 'resume' as const },
+  { href: '/contact', label: 'Contact', page: 'contact' as const },
+];
+---
+
+<!-- Mobile menu panel -->
+<div
+  id="mobile-menu-panel"
+  class="md:hidden hidden border-t border-neutral-300 bg-white"
+  role="navigation"
+  aria-label="Mobile navigation"
+>
+  <ul class="flex flex-col px-6 py-2">
+    {navLinks.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          aria-current={currentPage === link.page ? 'page' : undefined}
+          class:list={[
+            'block py-3 px-2 text-sm font-medium transition-colors duration-150 hover:text-primary-600 hover:bg-neutral-100 rounded focus:outline-2 focus:outline-offset-2 focus:outline-primary-500',
+            currentPage === link.page ? 'text-primary-600 bg-primary-100/50' : 'text-neutral-700',
+          ]}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
