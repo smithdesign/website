@@ -13,7 +13,7 @@ const { entries } = Astro.props;
 <div class="timeline relative mx-auto w-full max-w-4xl">
   {/* Vertical timeline line - left on mobile, center on desktop */}
   <div
-    class="absolute left-0 top-0 h-full w-0.5 bg-neutral-300 md:left-1/2 md:-translate-x-1/2"
+    class="timeline-line absolute left-0 top-0 h-full w-0.5 md:left-1/2 md:-translate-x-1/2"
     aria-hidden="true"
   />
 
@@ -33,3 +33,16 @@ const { entries } = Astro.props;
     ))}
   </div>
 </div>
+
+<style>
+  .timeline-line {
+    background: linear-gradient(
+      to bottom,
+      var(--color-accent-500),
+      var(--color-accent-500) 15%,
+      var(--color-surface-600) 40%,
+      var(--color-surface-700)
+    );
+    box-shadow: 0 0 8px var(--color-accent-500), 0 0 20px rgba(59, 130, 246, 0.15);
+  }
+</style>

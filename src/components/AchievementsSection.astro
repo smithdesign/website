@@ -1,0 +1,54 @@
+---
+import ScrollReveal from './ScrollReveal.astro';
+
+const achievements = [
+  {
+    metric: '20%',
+    label: 'Faster Page Loads',
+    detail: 'Across all percentiles vs. legacy platform',
+  },
+  {
+    metric: '40%',
+    label: 'Core Web Vitals Improvement',
+    detail: 'Driving better SEO and user experience',
+  },
+  {
+    metric: '35%',
+    label: 'Faster Feature Development',
+    detail: 'Saving 145 SDE-hours per week',
+  },
+  {
+    metric: '50%',
+    label: 'Onboarding Time Reduced',
+    detail: 'Getting engineers productive faster',
+  },
+];
+---
+
+<section class="py-16 md:py-24 bg-surface-900" aria-labelledby="achievements-heading">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 id="achievements-heading" class="text-[1.75rem] md:text-[2.5rem] font-display font-bold text-text-primary text-center mb-3">
+      Key Achievements
+    </h2>
+    <p class="text-base md:text-lg text-text-muted text-center mb-12 max-w-2xl mx-auto">
+      Led the largest frontend migration in Zappos history — here's what it delivered.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      {achievements.map((item, index) => (
+        <ScrollReveal animation="fade-up" delay={index * 100}>
+          <div class="rounded-xl border border-surface-700 bg-surface-800 p-8 text-center transition-all duration-200 hover:border-accent-500/40 hover:-translate-y-1">
+            <p class="text-5xl md:text-6xl font-display font-black text-accent-400 mb-3">
+              {item.metric}
+            </p>
+            <p class="text-lg font-semibold text-text-primary mb-2">
+              {item.label}
+            </p>
+            <p class="text-sm text-text-muted leading-relaxed">
+              {item.detail}
+            </p>
+          </div>
+        </ScrollReveal>
+      ))}
+    </div>
+  </div>
+</section>

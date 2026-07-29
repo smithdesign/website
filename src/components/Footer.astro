@@ -3,7 +3,7 @@ import { siteMeta } from '../data/meta';
 import { socialLinks } from '../data/social';
 ---
 
-<footer class="border-t border-neutral-300 bg-white py-8">
+<footer class="border-t border-surface-700 bg-surface-900 py-8">
   <div class="max-w-6xl mx-auto px-6 text-center">
     <nav aria-label="Social links" class="mb-4 flex justify-center gap-6">
       {socialLinks.map((link) => (
@@ -12,14 +12,17 @@ import { socialLinks } from '../data/social';
           target="_blank"
           rel="noopener noreferrer"
           aria-label={link.label}
-          class="text-neutral-500 hover:text-blue-500 transition-colors duration-150 rounded focus:outline-2 focus:outline-offset-2 focus:outline-primary-500"
+          class="text-text-muted hover:text-accent-400 transition-colors duration-150 rounded focus:outline-2 focus:outline-offset-2 focus:outline-accent-500"
         >
           {link.platform}
         </a>
       ))}
     </nav>
-    <p class="text-sm text-neutral-500">
-      &copy; {new Date().getFullYear()} {siteMeta.author}. All rights reserved.
+    <p class="text-sm text-text-muted">
+      Built with Astro, deployed from Las Vegas.
+    </p>
+    <p class="mt-1 text-sm text-surface-600">
+      &copy; {new Date().getFullYear()} {siteMeta.author}
     </p>
   </div>
 </footer>

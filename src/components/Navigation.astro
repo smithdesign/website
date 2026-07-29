@@ -12,9 +12,9 @@ const navLinks = [
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-300">
+<header class="sticky top-0 z-50 bg-surface-900/95 backdrop-blur-sm border-b border-surface-700">
   <nav aria-label="Main navigation" class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="/" class="text-lg font-bold text-primary-900">Tobby Smith</a>
+    <a href="/" class="text-lg font-display font-bold text-accent-400">Tobby Smith</a>
 
     <!-- Desktop navigation links (hidden on mobile) -->
     <ul class="hidden md:flex gap-6">
@@ -24,8 +24,8 @@ const navLinks = [
             href={link.href}
             aria-current={currentPage === link.page ? 'page' : undefined}
             class:list={[
-              'text-sm font-medium transition-colors duration-150 hover:text-primary-600 focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 rounded',
-              currentPage === link.page ? 'text-primary-600' : 'text-neutral-700',
+              'text-sm font-medium transition-colors duration-150 hover:text-accent-400 focus:outline-2 focus:outline-offset-2 focus:outline-accent-500 rounded',
+              currentPage === link.page ? 'text-accent-400' : 'text-text-secondary',
             ]}
           >
             {link.label}
@@ -38,7 +38,7 @@ const navLinks = [
     <button
       id="mobile-menu-toggle"
       type="button"
-      class="md:hidden flex items-center justify-center w-10 h-10 rounded focus:outline-2 focus:outline-offset-2 focus:outline-primary-500 text-neutral-700 hover:text-primary-600 transition-colors duration-150"
+      class="md:hidden flex items-center justify-center w-10 h-10 rounded focus:outline-2 focus:outline-offset-2 focus:outline-accent-500 text-text-secondary hover:text-accent-400 transition-colors duration-150"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Open navigation menu"
@@ -57,7 +57,7 @@ const navLinks = [
   <!-- Mobile menu panel (hidden by default) -->
   <div
     id="mobile-menu"
-    class="md:hidden hidden border-t border-neutral-300 bg-white"
+    class="md:hidden hidden border-t border-surface-700 bg-surface-900"
     role="navigation"
     aria-label="Mobile navigation"
   >
@@ -68,8 +68,8 @@ const navLinks = [
             href={link.href}
             aria-current={currentPage === link.page ? 'page' : undefined}
             class:list={[
-              'block py-3 px-2 text-sm font-medium transition-colors duration-150 hover:text-primary-600 hover:bg-neutral-100 rounded focus:outline-2 focus:outline-offset-2 focus:outline-primary-500',
-              currentPage === link.page ? 'text-primary-600 bg-primary-100/50' : 'text-neutral-700',
+              'block py-3 px-2 text-sm font-medium transition-colors duration-150 hover:text-accent-400 hover:bg-surface-800 rounded focus:outline-2 focus:outline-offset-2 focus:outline-accent-500',
+              currentPage === link.page ? 'text-accent-400 bg-surface-800' : 'text-text-secondary',
             ]}
           >
             {link.label}

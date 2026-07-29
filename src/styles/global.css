@@ -1,36 +1,53 @@
 @import "tailwindcss";
 @import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
-@import "@fontsource/inter/700.css";
-@import "@fontsource/inter/800.css";
+@import "@fontsource/sora/600.css";
+@import "@fontsource/sora/700.css";
+@import "@fontsource/sora/800.css";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
 
-  /* Primary colors */
-  --color-primary-900: #1a1a2e;
-  --color-primary-800: #16213e;
-  --color-primary-700: #0f3460;
-  --color-primary-600: #1a56db;
-  --color-primary-500: #3b82f6;
-  --color-primary-400: #60a5fa;
+  /* Charcoal base */
+  --color-surface-900: #18181b;
+  --color-surface-800: #27272a;
+  --color-surface-700: #3f3f46;
+  --color-surface-600: #52525b;
+
+  /* Tinted section backgrounds */
+  --color-surface-blue: #1e2a3a;
+  --color-surface-indigo: #1e1b2e;
+
+  /* Electric blue accent */
+  --color-accent-600: #2563eb;
+  --color-accent-500: #3b82f6;
+  --color-accent-400: #60a5fa;
+  --color-accent-300: #93c5fd;
+
+  /* Secondary accent (cyan) for variety */
+  --color-secondary-500: #06b6d4;
+  --color-secondary-400: #22d3ee;
+
+  /* Text on dark */
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #d4d4d8;
+  --color-text-muted: #a1a1aa;
+
+  /* Legacy aliases */
+  --color-primary-900: #18181b;
+  --color-primary-800: #27272a;
+  --color-primary-600: #3b82f6;
+  --color-primary-500: #60a5fa;
   --color-primary-100: #dbeafe;
-
-  /* Neutral colors */
-  --color-neutral-900: #111827;
-  --color-neutral-700: #374151;
-  --color-neutral-500: #6b7280;
-  --color-neutral-300: #d1d5db;
-  --color-neutral-100: #f3f4f6;
-  --color-neutral-50: #f9fafb;
-
-  /* Accent colors */
-  --color-accent-600: #7c3aed;
-  --color-accent-500: #8b5cf6;
-  --color-accent-400: #a78bfa;
-
-  /* Semantic colors */
-  --color-success: #065f46;
+  --color-neutral-900: #f4f4f5;
+  --color-neutral-700: #d4d4d8;
+  --color-neutral-500: #71717a;
+  --color-neutral-300: #3f3f46;
+  --color-neutral-100: #27272a;
+  --color-neutral-50: #18181b;
+  --color-success: #34d399;
   --color-success-light: #10b981;
 }
 
@@ -41,10 +58,14 @@
   }
 
   body {
-    color: var(--color-neutral-900);
-    background-color: var(--color-neutral-50);
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-900);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
   }
 
   @media (prefers-reduced-motion: reduce) {

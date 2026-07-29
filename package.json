@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "@fontsource/fraunces": "^5.2.9",
     "@fontsource/inter": "^5.2.8",
+    "@fontsource/sora": "^5.2.8",
     "@tailwindcss/vite": "^4.2.4",
     "astro": "^5.18.1",
     "tailwindcss": "^4.2.4",

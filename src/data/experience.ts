@@ -29,7 +29,7 @@ export const experience: ExperienceEntry[] = [
     endDate: "Present",
     location: "Las Vegas Metropolitan Area",
     description:
-      "Leading a multi-year digital transformation of Zappos.com's legacy frontend to a modern Next.js architecture, improving development velocity, reducing technical debt, and enhancing scalability across multiple marketplaces. Driving Core Web Vitals optimization and site performance improvements to elevate customer experience for millions of users. Partnering with product, design, and platform teams to align engineering roadmaps with strategic business priorities.",
+      "Managing 8–16 engineers through a full-scale migration of Zappos.com from a legacy platform to Next.js — delivering 20% faster page loads, 40% improvement in Core Web Vitals, and 5x faster builds (100x for incremental). The migration unlocked 35% faster feature development (saving 145 SDE-hours/week), cut developer onboarding time by 50%, and resolved multi-marketplace scalability limitations that had constrained growth.",
     isCurrent: true,
   },
   {
@@ -41,7 +41,7 @@ export const experience: ExperienceEntry[] = [
     endDate: "July 2022",
     location: "Fort Worth, Texas (Remote)",
     description:
-      "Led a team of developers and was responsible for all of Koddi's UI applications. Grew and mentored a team of UI developers and led a major replatforming of the main UI application.",
+      "Led a team of 5 engineers owning the front end across all Koddi products. Evolved the Koddi Demand platform for travel advertisers and built the Koddi Ads platform for retailers from the ground up using React and Go. Grew and mentored the team while driving a major replatforming of the core UI application.",
     isCurrent: false,
   },
   {
@@ -53,7 +53,7 @@ export const experience: ExperienceEntry[] = [
     endDate: "January 2018",
     location: "New York, New York",
     description:
-      "Architected, built and maintained UI for Criteo's travel ad platform.",
+      "Continued evolving the TravelAds platform post-acquisition, completing the full migration from .NET to C# and Angular. Improved application performance and maintainability across Criteo's travel advertising suite.",
     isCurrent: false,
   },
   {
@@ -65,7 +65,7 @@ export const experience: ExperienceEntry[] = [
     endDate: "December 2016",
     location: "New York, New York",
     description:
-      "Led and implemented the replatforming of HookLogic's travel and retail UIs from .NET to Angular. This improved application performance by over 400%.",
+      "Led and implemented the replatforming of HookLogic's travel and retail UIs from .NET to Angular, improving application performance by over 400%. HookLogic was successfully acquired by Criteo in 2016.",
     isCurrent: false,
   },
   {
@@ -117,39 +117,15 @@ export const experience: ExperienceEntry[] = [
     isCurrent: false,
   },
   {
-    id: "gnetworks",
-    role: "Project Manager",
-    company: "gNetworks",
-    logo: "/logos/gnetworks.svg",
-    startDate: "December 2007",
-    endDate: "March 2008",
-    location: "Grand Rapids, Michigan",
-    description:
-      "Managed web development projects and coordinated cross-functional teams to deliver client solutions on time and within budget.",
-    isCurrent: false,
-  },
-  {
-    id: "meijer",
-    role: "Web Designer/Developer",
-    company: "Meijer",
-    logo: "/logos/meijer_logo.jpeg",
-    startDate: "November 2006",
+    id: "earlier-career",
+    role: "Earlier Career",
+    company: "Meijer, gNetworks, Smith Design Services",
+    logo: "",
+    startDate: "April 2002",
     endDate: "November 2007",
     location: "Grand Rapids, Michigan",
     description:
-      "Designed and developed content for Meijer's major marketing events. Advised and assisted with the transition to new ecommerce platform. Managed email marketing platform with over 500,000 subscribers.",
-    isCurrent: false,
-  },
-  {
-    id: "smith-design",
-    role: "Web Designer",
-    company: "Smith Design Services",
-    logo: "/logos/smith-design.svg",
-    startDate: "April 2002",
-    endDate: "October 2006",
-    location: "Grand Rapids, Michigan",
-    description:
-      "Founded and operated a freelance web design studio, delivering custom websites and branding solutions for small businesses and local organizations.",
+      "Web development and project management roles including e-commerce platform development at Meijer (500K+ email subscribers), cross-functional project delivery at gNetworks, and founding a freelance web design studio serving local businesses.",
     isCurrent: false,
   },
 ];

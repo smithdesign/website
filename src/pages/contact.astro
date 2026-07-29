@@ -11,28 +11,28 @@ import { socialLinks } from '../data/social';
   currentPage="contact"
 >
   <!-- Contact Header -->
-  <section class="py-10 md:py-16 bg-neutral-50" aria-labelledby="contact-heading">
+  <section class="py-16 md:py-24 bg-surface-900" aria-labelledby="contact-heading">
     <div class="max-w-6xl mx-auto px-6">
-      <h1 id="contact-heading" class="text-[2rem] md:text-[2.75rem] font-extrabold text-neutral-900 text-center mb-6">
+      <h1 id="contact-heading" class="text-[2rem] md:text-[3rem] font-display font-black text-text-primary text-center mb-6">
         Contact
       </h1>
-      <p class="text-lg md:text-xl text-neutral-700 leading-relaxed max-w-3xl mx-auto text-center">
-        I'm always open to connecting with fellow engineers, hiring managers, and anyone interested in discussing software development leadership. Feel free to reach out.
+      <p class="text-lg md:text-xl text-text-secondary leading-relaxed max-w-3xl mx-auto text-center">
+        If you're building something ambitious and need an engineering leader who's shipped large-scale platform migrations — let's talk.
       </p>
     </div>
   </section>
 
   <!-- Email Section -->
-  <section class="py-10 md:py-16" aria-labelledby="email-heading">
+  <section class="py-12 md:py-16 bg-surface-blue" aria-labelledby="email-heading">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 id="email-heading" class="text-[1.75rem] md:text-[2.25rem] font-bold text-neutral-900 text-center mb-8">
+      <h2 id="email-heading" class="text-[1.75rem] md:text-[2.25rem] font-display font-bold text-text-primary text-center mb-8">
         Email
       </h2>
-      <div class="max-w-md mx-auto bg-white rounded-xl border border-neutral-300 p-6 text-center">
-        <p class="text-neutral-700 mb-3">Primary contact method</p>
+      <div class="max-w-md mx-auto bg-surface-900 rounded-xl border border-surface-700 p-6 text-center">
+        <p class="text-text-secondary mb-3">Primary contact method</p>
         <a
           href={`mailto:${siteMeta.email}`}
-          class="text-lg font-semibold text-primary-600 hover:text-primary-500 underline underline-offset-4 transition-colors duration-200 focus:outline-2 focus:outline-offset-2 focus:outline-primary-500"
+          class="text-lg font-semibold text-accent-400 hover:text-accent-300 underline underline-offset-4 transition-colors duration-200 focus:outline-2 focus:outline-offset-2 focus:outline-accent-500"
         >
           {siteMeta.email}
         </a>
@@ -41,9 +41,9 @@ import { socialLinks } from '../data/social';
   </section>
 
   <!-- Social Links Section -->
-  <section class="py-10 md:py-16 bg-neutral-50" aria-labelledby="social-heading">
+  <section class="py-12 md:py-16 bg-surface-900" aria-labelledby="social-heading">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 id="social-heading" class="text-[1.75rem] md:text-[2.25rem] font-bold text-neutral-900 text-center mb-8">
+      <h2 id="social-heading" class="text-[1.75rem] md:text-[2.25rem] font-display font-bold text-text-primary text-center mb-8">
         Connect
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
@@ -60,18 +60,18 @@ import { socialLinks } from '../data/social';
   </section>
 
   <!-- Location Section -->
-  <section class="py-10 md:py-16" aria-labelledby="location-heading">
+  <section class="py-12 md:py-16 bg-surface-indigo" aria-labelledby="location-heading">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 id="location-heading" class="text-[1.75rem] md:text-[2.25rem] font-bold text-neutral-900 text-center mb-8">
+      <h2 id="location-heading" class="text-[1.75rem] md:text-[2.25rem] font-display font-bold text-text-primary text-center mb-8">
         Location
       </h2>
-      <div class="max-w-md mx-auto bg-white rounded-xl border border-neutral-300 p-6 text-center">
+      <div class="max-w-md mx-auto bg-surface-900 rounded-xl border border-surface-700 p-6 text-center">
         <div class="flex items-center justify-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent-400" aria-hidden="true">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
-          <p class="text-lg font-semibold text-neutral-900">{siteMeta.location}</p>
+          <p class="text-lg font-semibold text-text-primary">{siteMeta.location}</p>
         </div>
       </div>
     </div>
