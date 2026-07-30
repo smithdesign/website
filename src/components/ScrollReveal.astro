@@ -24,15 +24,16 @@ const {
 </div>
 
 <style>
-  /* Content is visible by default (progressive enhancement) */
-  .scroll-reveal {
-    will-change: opacity, transform;
-  }
+  /* Content is visible by default (progressive enhancement).
+     `will-change` is scoped to the states that actually animate — leaving it on
+     every wrapper permanently keeps a compositing layer alive for the life of
+     the page, which costs memory and makes colour sampling unreliable. */
 
   /* Only hide content when JS has loaded and added this class */
   .scroll-reveal.not-revealed {
     opacity: 0;
     transition: opacity 600ms ease-out, transform 600ms ease-out;
+    will-change: opacity, transform;
   }
 
   .scroll-reveal.not-revealed[data-animation='fade-up'] {
@@ -100,68 +101,67 @@ const {
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            const delay = parseInt(el.dataset.delay || '0', 10);
+    // `rootMargin` grows the observed area past the viewport so entries reveal
+    // just before they scroll into view. Without it, anything already below the
+    // fold on load stays at opacity 0 until the user scrolls, and any element
+    // taller than the viewport can never reach a 10% ratio at all — so it would
+    // stay invisible permanently.
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px 25% 0px' };
 
-            if (delay > 0) {
-              setTimeout(() => {
-                el.classList.remove('not-revealed');
-                el.classList.add('revealed');
-              }, delay);
-            } else {
-              el.classList.remove('not-revealed');
-              el.classList.add('revealed');
-            }
-
-            // Stop observing once revealed
-            observer.unobserve(el);
-          }
-        });
-      },
-      {
-        // Use the threshold from the first element as default,
-        // individual thresholds are handled per-element below
-        threshold: 0.1,
+    const reveal = (el: HTMLElement) => {
+      const delay = parseInt(el.dataset.delay || '0', 10);
+      if (delay > 0) {
+        setTimeout(() => {
+          el.classList.remove('not-revealed');
+          el.classList.add('revealed');
+        }, delay);
+      } else {
+        el.classList.remove('not-revealed');
+        el.classList.add('revealed');
       }
-    );
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          reveal(entry.target as HTMLElement);
+          // Stop observing once revealed
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
 
     elements.forEach((el) => {
       const threshold = parseFloat(el.dataset.threshold || '0.1');
 
       // If threshold differs from default, create a dedicated observer
       if (threshold !== 0.1) {
-        const customObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const target = entry.target as HTMLElement;
-                const delay = parseInt(target.dataset.delay || '0', 10);
-
-                if (delay > 0) {
-                  setTimeout(() => {
-                    target.classList.remove('not-revealed');
-                    target.classList.add('revealed');
-                  }, delay);
-                } else {
-                  target.classList.remove('not-revealed');
-                  target.classList.add('revealed');
-                }
-
-                customObserver.unobserve(target);
-              }
-            });
-          },
-          { threshold }
-        );
+        const customObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              reveal(entry.target as HTMLElement);
+              customObserver.unobserve(entry.target);
+            }
+          });
+        }, { ...observerOptions, threshold });
         customObserver.observe(el);
       } else {
         observer.observe(el);
       }
     });
+
+    // Safety net: never leave content permanently invisible. An element taller
+    // than the viewport can't reach a 10% intersection ratio, and a user who
+    // never scrolls would otherwise never see anything below the fold. If the
+    // observer hasn't fired for an element shortly after load, reveal it
+    // regardless of where it sits — the animation is a nicety, the content is
+    // not. Elements already revealed by then are untouched, so scrolling still
+    // produces the staggered fade for anything the observer reached first.
+    setTimeout(() => {
+      document
+        .querySelectorAll<HTMLElement>('.scroll-reveal.not-revealed')
+        .forEach(reveal);
+    }, 1500);
   }
 
   // Run on initial load and on Astro page transitions
