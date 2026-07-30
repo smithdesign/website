@@ -4,19 +4,30 @@ import AxeBuilder from '@axe-core/playwright';
 test.describe('Accessibility', () => {
   const pages = ['/', '/resume', '/contact'];
 
+  // Scroll-reveal fades content in over 600ms with per-element delays. Scanning
+  // mid-fade makes axe read half-faded colours and report contrast failures that
+  // don't exist once the animation settles, so these scans run with reduced
+  // motion: reveals resolve instantly and every colour is its final value.
+  //
+  // This must be `page.emulateMedia()`, not `test.use({ reducedMotion })` — this
+  // Playwright build has no `reducedMotion` fixture, so the `test.use` form is
+  // accepted by the types and then silently ignored at runtime.
+  const reduceMotion = (page: import('@playwright/test').Page) =>
+    page.emulateMedia({ reducedMotion: 'reduce' });
+
   for (const pagePath of pages) {
     test(`axe-core scan passes on ${pagePath}`, async ({ page }) => {
+      await reduceMotion(page);
       await page.goto(pagePath);
-      // Scroll to bottom to trigger all scroll-reveal animations, then wait for them to complete
+      // Walk the page so every IntersectionObserver-driven reveal fires.
       await page.evaluate(async () => {
         const scrollHeight = document.documentElement.scrollHeight;
         const viewportHeight = window.innerHeight;
-        // Scroll through the entire page to trigger IntersectionObserver
         for (let y = 0; y <= scrollHeight; y += viewportHeight / 2) {
           window.scrollTo(0, y);
           await new Promise(r => setTimeout(r, 50));
         }
-        // Wait for all delayed animations to complete (max delay is ~1000ms + 600ms transition)
+        // Longest reveal is delay 800ms + a 600ms transition.
         await new Promise(r => setTimeout(r, 2000));
       });
       // Ensure all scroll-reveal elements are fully visible
@@ -26,6 +37,53 @@ test.describe('Accessibility', () => {
       expect(results.violations).toEqual([]);
     });
   }
+
+  // Sections layer text over decorative background images, which stops axe from
+  // resolving a background colour — those nodes land in `incomplete` rather than
+  // `violations`, so the scan above cannot see them. Card backgrounds are opaque
+  // and sit above the overlay, so assert their contrast directly.
+  test('text over decorative backgrounds meets WCAG AA contrast', async ({ page }) => {
+    await reduceMotion(page);
+    await page.goto('/resume');
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    const failures = await page.evaluate(() => {
+      const srgb = (c: number) => {
+        const n = c / 255;
+        return n <= 0.03928 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4;
+      };
+      const parse = (value: string) => {
+        const probe = document.createElement('div');
+        probe.style.color = value;
+        document.body.appendChild(probe);
+        const resolved = getComputedStyle(probe).color;
+        probe.remove();
+        const nums = resolved.match(/[\d.]+/g)?.map(Number) ?? [];
+        return { rgb: nums.slice(0, 3), alpha: nums[3] ?? 1 };
+      };
+      const luminance = ([r, g, b]: number[]) =>
+        0.2126 * srgb(r) + 0.7152 * srgb(g) + 0.0722 * srgb(b);
+
+      const bad: string[] = [];
+      for (const card of document.querySelectorAll('.timeline-card')) {
+        const bg = parse(getComputedStyle(card).backgroundColor).rgb;
+        for (const el of card.querySelectorAll('h3, p, span')) {
+          const text = el.textContent?.trim();
+          if (!text) continue;
+          const { rgb, alpha } = parse(getComputedStyle(el).color);
+          // Flatten any alpha against the opaque card background.
+          const fg = rgb.map((c, i) => c * alpha + bg[i] * (1 - alpha));
+          const [hi, lo] = [luminance(fg), luminance(bg)].sort((a, b) => b - a);
+          const ratio = (hi + 0.05) / (lo + 0.05);
+          if (ratio < 4.5) bad.push(`${ratio.toFixed(2)}:1 — "${text.slice(0, 40)}"`);
+        }
+      }
+      return bad;
+    });
+
+    expect(failures).toEqual([]);
+  });
 
   test('keyboard tab order is logical on home page', async ({ page }) => {
     await page.goto('/');

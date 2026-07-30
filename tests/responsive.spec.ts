@@ -6,24 +6,55 @@ const viewports = [
   { name: 'desktop', width: 1440, height: 900 },
 ];
 
+// The hero orbs and scroll-reveals animate indefinitely, so a plain screenshot
+// never sees two identical frames and eventually times out. Reduced motion
+// settles the reveals, `animations: 'disabled'` freezes the orbs, and the
+// remote hero images are stubbed so a slow network can't change the layout.
+const shot = { fullPage: true, animations: 'disabled' as const };
+
+async function ready(page: import('@playwright/test').Page, path: string) {
+  // Reduced motion MUST be set here rather than via `test.use({ reducedMotion })`:
+  // this Playwright build has no `reducedMotion` fixture, so the `test.use` form
+  // is silently dropped and the page renders with animations live. That produced
+  // screenshots where 8 of 9 timeline entries were still at opacity 0.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  // Replace the Unsplash background images with a fixed local pixel — the same
+  // size and position, but no network dependency and no decode variance.
+  await page.route('https://images.unsplash.com/**', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'image/gif',
+      body: Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64'),
+    })
+  );
+  await page.goto(path);
+  await page.waitForLoadState('networkidle');
+  await page.evaluate(() => document.fonts.ready);
+  // Guard against the failure above silently returning: every reveal wrapper
+  // must be fully opaque before the snapshot is taken.
+  await expect(page.locator('.scroll-reveal.not-revealed')).toHaveCount(0);
+}
+
 test.describe('Responsive Layout', () => {
   for (const viewport of viewports) {
     test.describe(`${viewport.name} (${viewport.width}px)`, () => {
-      test.use({ viewport: { width: viewport.width, height: viewport.height } });
+      test.use({
+        viewport: { width: viewport.width, height: viewport.height },
+      });
 
       test('Introduction page screenshot', async ({ page }) => {
-        await page.goto('/');
-        await expect(page).toHaveScreenshot(`intro-${viewport.name}.png`, { fullPage: true });
+        await ready(page, '/');
+        await expect(page).toHaveScreenshot(`intro-${viewport.name}.png`, shot);
       });
 
       test('Resume page screenshot', async ({ page }) => {
-        await page.goto('/resume');
-        await expect(page).toHaveScreenshot(`resume-${viewport.name}.png`, { fullPage: true });
+        await ready(page, '/resume');
+        await expect(page).toHaveScreenshot(`resume-${viewport.name}.png`, shot);
       });
 
       test('Contact page screenshot', async ({ page }) => {
-        await page.goto('/contact');
-        await expect(page).toHaveScreenshot(`contact-${viewport.name}.png`, { fullPage: true });
+        await ready(page, '/contact');
+        await expect(page).toHaveScreenshot(`contact-${viewport.name}.png`, shot);
       });
     });
   }
