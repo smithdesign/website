@@ -1,6 +1,7 @@
 ---
 interface Props {
-  currentPage: 'home' | 'resume' | 'contact';
+  // 'none' highlights nothing — used by pages outside the main nav, e.g. 404.
+  currentPage: 'home' | 'resume' | 'contact' | 'none';
 }
 
 const { currentPage } = Astro.props;

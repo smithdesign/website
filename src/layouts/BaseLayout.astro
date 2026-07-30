@@ -8,10 +8,12 @@ import { socialLinks } from '../data/social';
 interface Props {
   title: string;
   description: string;
-  currentPage: 'home' | 'resume' | 'contact';
+  currentPage: 'home' | 'resume' | 'contact' | 'none';
+  /** Keep this page out of search results (used by the 404 page). */
+  noindex?: boolean;
 }
 
-const { title, description, currentPage } = Astro.props;
+const { title, description, currentPage, noindex = false } = Astro.props;
 
 const fullTitle = `${title} | ${siteMeta.siteName}`;
 const canonicalUrl = new URL(Astro.url.pathname, siteMeta.siteUrl).href;
@@ -38,7 +40,7 @@ const structuredData = {
     <meta name="description" content={description} />
     <meta name="author" content={siteMeta.author} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="canonical" href={canonicalUrl} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonicalUrl} />}
 
     <!-- Open Graph -->
     <meta property="og:title" content={fullTitle} />
