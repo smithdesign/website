@@ -8,10 +8,14 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "playwright test"
+    "test": "playwright test",
+    "deploy": "astro build && node scripts/deploy.mjs",
+    "deploy:dry-run": "astro build && node scripts/deploy.mjs --dry-run",
+    "deploy:no-build": "node scripts/deploy.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/fraunces": "^5.2.9",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/sora": "^5.2.8",
@@ -22,6 +26,8 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
-    "@playwright/test": "^1.59.1"
+    "@playwright/test": "^1.59.1",
+    "basic-ftp": "^6.0.2",
+    "dotenv": "^17.4.2"
   }
 }
