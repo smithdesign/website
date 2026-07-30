@@ -10,32 +10,32 @@ test.describe('Introduction Page Content', () => {
 
   test('displays professional summary', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('seasoned engineering leader')).toBeVisible();
-    await expect(page.getByText('Zappos.com')).toBeVisible();
+    await expect(page.getByText('I turn legacy platforms into modern engineering organizations', { exact: false })).toBeVisible();
+    await expect(page.getByText('Zappos.com').first()).toBeVisible();
   });
 
-  test('displays four competency areas', async ({ page }) => {
+  test('displays key achievement metrics', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('Engineering Team Leadership')).toBeVisible();
-    await expect(page.getByText('Platform Architecture & Modernization')).toBeVisible();
-    await expect(page.getByText('Stakeholder & Roadmap Management')).toBeVisible();
-    await expect(page.getByText('Performance Optimization at Scale')).toBeVisible();
+    await expect(page.getByText('Faster Page Loads')).toBeVisible();
+    await expect(page.getByText('Largest Contentful Paint Improvement')).toBeVisible();
+    await expect(page.getByText('Faster Feature Development')).toBeVisible();
+    await expect(page.getByText('Engineer Onboarding')).toBeVisible();
   });
 });
 
 test.describe('Resume Page Content', () => {
-  test('displays professional summary', async ({ page }) => {
+  test('displays experience summary', async ({ page }) => {
     await page.goto('/resume');
-    await expect(page.getByText('24 years')).toBeVisible();
-    await expect(page.getByText('7+ years')).toBeVisible();
+    await expect(page.getByText('24+ years building for the web')).toBeVisible();
+    await expect(page.getByText('7+ years leading engineering teams')).toBeVisible();
   });
 
-  test('displays all 11 timeline entries', async ({ page }) => {
+  test('displays all timeline entries', async ({ page }) => {
     await page.goto('/resume');
     const companies = [
       'Amazon/Zappos', 'Koddi', 'Criteo', 'HookLogic',
       'Centurion Medical Products', 'Jackson National Life',
-      'IBM Global Business Services', 'gNetworks', 'Meijer',
+      'IBM Global Business Services', 'Meijer',
       'Smith Design Services'
     ];
     for (const company of companies) {
@@ -46,15 +46,22 @@ test.describe('Resume Page Content', () => {
   test('displays skills', async ({ page }) => {
     await page.goto('/resume');
     await expect(page.getByText('Engineering Management', { exact: true })).toBeVisible();
-    await expect(page.getByText('React/Next.js')).toBeVisible();
-    await expect(page.getByText('JavaScript/TypeScript')).toBeVisible();
+    await expect(page.getByText('React / Next.js')).toBeVisible();
+    await expect(page.getByText('TypeScript', { exact: true })).toBeVisible();
   });
 
-  test('displays education and award', async ({ page }) => {
+  test('displays education', async ({ page }) => {
     await page.goto('/resume');
-    await expect(page.getByText('Davenport University')).toBeVisible();
-    await expect(page.getByText('2004-2006')).toBeVisible();
-    await expect(page.getByText('Web Developer of the Month')).toBeVisible();
+    await expect(page.getByText('Davenport University', { exact: false })).toBeVisible();
+    await expect(page.getByText('2004-2006', { exact: false })).toBeVisible();
+  });
+
+  test('resume PDF download is available', async ({ page, request }) => {
+    await page.goto('/resume');
+    const link = page.locator('a[href="/resume.pdf"]');
+    await expect(link).toBeVisible();
+    const response = await request.get('/resume.pdf');
+    expect(response.status()).toBe(200);
   });
 });
 
@@ -69,7 +76,7 @@ test.describe('Contact Page Content', () => {
 
   test('displays email', async ({ page }) => {
     await page.goto('/contact');
-    await expect(page.getByText('tobby@tobbysmith.com')).toBeVisible();
+    await expect(page.getByText('tobbydigital@gmail.com')).toBeVisible();
   });
 
   test('displays location', async ({ page }) => {

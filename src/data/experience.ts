@@ -29,7 +29,7 @@ export const experience: ExperienceEntry[] = [
     endDate: "Present",
     location: "Las Vegas Metropolitan Area",
     description:
-      "Managing 8–16 engineers through a full-scale migration of Zappos.com from a legacy platform to Next.js — delivering 20% faster page loads, 40% improvement in Core Web Vitals, and 5x faster builds (100x for incremental). The migration unlocked 35% faster feature development (saving 145 SDE-hours/week), cut developer onboarding time by 50%, and resolved multi-marketplace scalability limitations that had constrained growth.",
+      "Managing 8–16 engineers through a full-scale migration of Zappos.com from a legacy platform to Next.js — delivering 20% faster page loads, a 40% improvement in Largest Contentful Paint, and 5x faster builds (100x for incremental). The migration unlocked 35% faster feature development (saving 145 SDE-hours/week), cut developer onboarding from two months to under one week, and resolved multi-marketplace scalability limitations that had constrained growth.",
     isCurrent: true,
   },
   {
@@ -39,9 +39,9 @@ export const experience: ExperienceEntry[] = [
     logo: "/logos/koddi_logo.jpeg",
     startDate: "January 2018",
     endDate: "July 2022",
-    location: "Fort Worth, Texas (Remote)",
+    location: "Ann Arbor, Michigan (Remote)",
     description:
-      "Led a team of 5 engineers owning the front end across all Koddi products. Evolved the Koddi Demand platform for travel advertisers and built the Koddi Ads platform for retailers from the ground up using React and Go. Grew and mentored the team while driving a major replatforming of the core UI application.",
+      "Led a team of 5 engineers owning the front end across all Koddi products. Evolved the Koddi Demand platform for travel advertisers — integrated with partners including Google Hotel Ads, TripAdvisor, Kayak, and Trivago — and built the Koddi Ads platform for retailers from the ground up, architecting large-scale Angular and React applications. Grew and mentored the team while driving a major replatforming of the core UI application.",
     isCurrent: false,
   },
   {
@@ -51,9 +51,9 @@ export const experience: ExperienceEntry[] = [
     logo: "/logos/criteo_logo.jpeg",
     startDate: "January 2017",
     endDate: "January 2018",
-    location: "New York, New York",
+    location: "Ann Arbor, Michigan",
     description:
-      "Continued evolving the TravelAds platform post-acquisition, completing the full migration from .NET to C# and Angular. Improved application performance and maintainability across Criteo's travel advertising suite.",
+      "Retained through Criteo's acquisition of HookLogic, continuing to evolve the TravelAds platform and completing the front-end migration to Angular on a .NET stack. Contributed to a global digital advertising platform processing hundreds of billions of dollars in sales data.",
     isCurrent: false,
   },
   {
@@ -63,7 +63,7 @@ export const experience: ExperienceEntry[] = [
     logo: "/logos/hook.jpeg",
     startDate: "October 2014",
     endDate: "December 2016",
-    location: "New York, New York",
+    location: "Ann Arbor, Michigan",
     description:
       "Led and implemented the replatforming of HookLogic's travel and retail UIs from .NET to Angular, improving application performance by over 400%. HookLogic was successfully acquired by Criteo in 2016.",
     isCurrent: false,
@@ -122,7 +122,7 @@ export const experience: ExperienceEntry[] = [
     company: "Meijer, gNetworks, Smith Design Services",
     logo: "",
     startDate: "April 2002",
-    endDate: "November 2007",
+    endDate: "March 2008",
     location: "Grand Rapids, Michigan",
     description:
       "Web development and project management roles including e-commerce platform development at Meijer (500K+ email subscribers), cross-functional project delivery at gNetworks, and founding a freelance web design studio serving local businesses.",
