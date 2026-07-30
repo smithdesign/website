@@ -16,3 +16,7 @@ dist/
 
 .kiro/
 documents/
+
+# playwright output (regenerated on every run)
+playwright-report/
+test-results/
